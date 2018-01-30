@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp /home/pitems/.config/awesome/rc.lua.powerarrow /home/pitems/.config/awesome/rc.lua 
+
+echo 'awesome.restart()' | awesome-client
