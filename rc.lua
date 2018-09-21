@@ -71,7 +71,7 @@ local altkey       = "Mod1"
 local terminal     = "sakura"
 local terminal2    = "urxvt"
 local editor       = os.getenv("EDITOR") or "vim"
-local gui_editor   = "kate"
+local gui_editor   = "mousepad"
 local browser      = "qutebrowser"
 
 awful.util.terminal = terminal
@@ -412,7 +412,7 @@ globalkeys = awful.util.table.join(
    awful.util.spawn("amixer set Master 5%-", false) end),
    
    --LockScreen
-   awful.key({modkey, }, "l", function () awful.util.spawn("sh /home/pitems/Scripts/i3lock.sh") end),
+   awful.key({modkey, }, "l", function () awful.util.spawn("sh /home/pitems/Scripts/lockscreen.sh") end),
               
     -- Non-empty tag browsing
     awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
@@ -457,7 +457,6 @@ globalkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "i", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
-    
     awful.key({ modkey,           }, "d", function () awful.util.spawn("sh /home/pitems/Scripts/testscript.sh") end),
         
     -- Layout manipulation
@@ -539,7 +538,7 @@ globalkeys = awful.util.table.join(
                   end
               end,
               {description = "restore minimized", group = "client"}),
-
+    
     -- Dropdown application
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end),
 
@@ -667,7 +666,8 @@ clientkeys = awful.util.table.join(
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
-    awful.key({ modkey,           }, "n",
+    awful.key({ modkey,           }, "y",      function (c) c.sticky = not c.sticky  end),
+    awful.key({ modkey, }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
@@ -730,7 +730,10 @@ for i = 1, 9 do
                   end,
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
+	
 end
+
+
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
